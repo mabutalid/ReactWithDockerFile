@@ -3,12 +3,24 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - npm install
+      - echo Logging in to Amazon ECR...
+      - export COMMIT_TAG=${CODEBUILD_RESOLVED_SOURCE_VERSION:0:7}
+      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+      - echo Setting image tag
+      - export IMAGE_TAG=`date +%y.%m%d`.$CODEBUILD_BUILD_NUMBER.$COMMIT_TAG
   build:
     commands:
-      - npm run build
+      - echo Building the Docker image with tag $IMAGE_TAG
+      - docker build -f docker/Dockerfile.build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
+      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:latest
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:latest
+      - echo Writing image definitions file...
+      - printf '[{"name":"react-api-container","imageUri":"%s"}]' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG > imagedefinitions.json
 artifacts:
-  files:
-    - '**/*'
-  discard-paths: no
-  base-directory: build
+  files: imagedefinitions.json

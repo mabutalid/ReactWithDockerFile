@@ -4,8 +4,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Welcome to a Dockerized React App</h1>
-        <h2>Placed in an AWS ECR</h2>
+        <h1>Currently being deployed in S3 bucket</h1>
+        <h2>With Codepipeline</h2>
       </header>
     </div>
   );

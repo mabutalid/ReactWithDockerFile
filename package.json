@@ -13,7 +13,8 @@
 		"web-vitals": "^0.2.4"
 	},
 	"scripts": {
-		"start": "npm run build & node server.js",
+		"start": "react-scripts start",
+		"prod": "npm run build & node server.js",
 		"dev": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",

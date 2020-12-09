@@ -4,8 +4,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Currently being deployed in S3 bucket</h1>
-        <h2>With Codepipeline</h2>
+        <h1>Currently being deployed using CodePipeline</h1>
+        <h2>Deployed to ECS</h2>
+        <h3>React App</h3>
       </header>
     </div>
   );

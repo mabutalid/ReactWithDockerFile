@@ -3,6 +3,7 @@ version: 0.2
 env:
   variables:
     IMAGE_REPO_NAME: simplereact
+    AWS_ACCOUNT_ID: 107966190566
 
 phases:
   install:

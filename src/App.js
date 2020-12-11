@@ -4,9 +4,19 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Currently being deployed using CodePipeline</h1>
-        <h2>Deployed to ECS</h2>
-        <h3>React App</h3>
+        <h1>Welcome to CDK deployed app</h1>
+        <h2> Stacks created for this app</h2>
+        <ul>
+          <li>VPC STACK</li>
+          <li>ECS CLUSTER STACK</li>
+          <li>ECS FARGATE TASK DEFINTION</li>
+          <li>ECR REPOSITORY STACK</li>
+          <li>ECS SERVICE Stack</li>
+          <li> - Application Load Balancer</li>
+          <li> - Target Group</li>
+          <li>CODEPIPELINE STACK</li>
+          <li>CODEBUILD STACK</li>
+        </ul>
       </header>
     </div>
   );

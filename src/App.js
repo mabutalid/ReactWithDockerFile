@@ -4,6 +4,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <h1>Marco was here</h1>
         <h1>Welcome to CDK deployed app</h1>
         <h2> Stacks created for this app</h2>
         <ul>
